@@ -4,11 +4,15 @@ set -o pipefail
 
 usage() {
   cat <<"EOF"
+This is the context switch helper for kubernetes.
+
 usage:
   kctx           : filtering context list with peco
   kctx <NAME>    : switch to <NAME> context
 
   kctx -h        : who this message
+
+Depends on peco and kubectl.
 
 EOF
 }
