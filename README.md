@@ -9,8 +9,10 @@ Enable access to multiple clusters by using tmux pain etc.
 ```
 $ # pain 1
 $ kctx -h
+This is the context switch helper for kubernetes.
+
 usage:
-  kctx           : filtering context list with peco
+  kctx           : show context list or use peco to filter context
   kctx <NAME>    : switch to <NAME> context
 
   kctx -h        : show this message
