@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+set -o pipefail
+
+
+# peco required
+which peco > /dev/null 2>&1
+if [ "$?" -eq "1" ]; then
+  echo plz install peco
+  return 1
+fi
+
+# kubectl required
+which kubectl > /dev/null 2>&1
+if [ "$?" -eq "1" ]; then
+  echo plz install kubectl
+  return 1
+fi
+
+# Get context
+KUBECONFIGDIR=${HOME}/.kube/
+if [ "$#" -eq 0 ]; then
+  CONTEXT=`KUBECONFIG=${KUBECONFIGDIR}/config kubectl config get-contexts -o name | peco`
+else
+  CONTEXT=$1
+fi
+
+# Create each context
+FILENAME=${KUBECONFIGDIR}/config-${CONTEXT}
+if [ ! -f ${FILENAME} ]; then
+  CURRENT_CONTECT=`kubectl config current-context`
+  kubectl config use-context ${CONTEXT} && kubectl config view --minify --raw > ${FILENAME}
+  # Restore the original
+  kubectl config use-context ${CURRENT_CONTECT} > /dev/null 2>&1
+fi
+
+# Switched
+if [ -f ${FILENAME} ]; then
+  unset KUBECONFIG
+  export KUBECONFIG=${FILENAME}
+  echo "Switched to context \"${CONTEXT}\"."
+else
+  return 1
+fi
