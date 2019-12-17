@@ -2,6 +2,22 @@
 
 set -o pipefail
 
+usage() {
+  cat <<"EOF"
+usage:
+  kctx           : filtering context list with peco
+  kctx <NAME>    : switch to <NAME> context
+
+  kctx -h        : who this message
+
+EOF
+}
+
+if [ "$1" = "-h" ]; then
+  usage
+  return 1
+fi
+
 # peco required
 which peco > /dev/null 2>&1
 if [ "$?" -eq "1" ]; then

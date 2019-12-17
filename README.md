@@ -1,9 +1,37 @@
 # kctx
 
+## Overview
+This is the context switch helper for kubernetes.  
+Enable access to multiple clusters by using tmux pain etc.
+
 ## Usage
 ```
-$ kctx
+$ # pain 1
+$ kctx -h
+usage:
+  kctx           : filtering context list with peco
+  kctx <NAME>    : switch to <NAME> context
+
+  kctx -h        : show this message
+
+$ kctx dev
+$ kubectl config current-context
+dev
+$ kubectl get pods
+~ get dev pod list ~
+
+
+=== other pain(tmux etc..) ===
+
+$ # pain 2
+$ kctx stg
+$ kubectl config current-context
+stg
+$ kubectl get pods
+~ get stg pod list ~
 ```
+^^ Example of simultaneous connection to two clusters
+
 
 ## Dependencies
 - peco
