@@ -2,7 +2,7 @@
 
 ## Usage
 ```
-$ source kctx
+$ kctx
 ```
 
 ## Dependencies
@@ -11,5 +11,6 @@ $ source kctx
 
 ## Install
 ```
-$ cp kctx /path/to/bin/
+$ git clone https://github.com/m3y/kctx.git
+$ alias kctx="source /path/to/kctx/kctx"
 ```
