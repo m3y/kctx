@@ -4,6 +4,7 @@
 This is the context switch helper for kubernetes.  
 Enable access to multiple clusters by using tmux pain etc.
 
+
 ## Usage
 ```
 $ # pain 1
@@ -32,10 +33,6 @@ $ kubectl get pods
 ```
 ^^ Example of simultaneous connection to two clusters
 
-
-## Dependencies
-- peco
-- kubectl
 
 ## Install
 ```

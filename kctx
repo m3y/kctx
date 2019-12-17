@@ -12,21 +12,12 @@ usage:
 
   kctx -h        : who this message
 
-Depends on peco and kubectl.
-
 EOF
 }
 
 if [ "$1" = "-h" ]; then
   usage
-  return 1
-fi
-
-# peco required
-which peco > /dev/null 2>&1
-if [ "$?" -eq "1" ]; then
-  echo plz install peco
-  return 1
+  return 0
 fi
 
 # kubectl required
@@ -44,6 +35,12 @@ KCTXDIR=${KUBECONFIGDIR}/kctx/
 
 # Get context
 if [ "$#" -eq "0" ]; then
+  which peco > /dev/null 2>&1
+  if [ "$?" -eq "1" ]; then
+    kubectl config get-contexts -o name
+    return 1
+  fi
+
   CONTEXT=`KUBECONFIG=${KUBECONFIGDIR}/config kubectl config get-contexts -o name | peco`
 else
   CONTEXT=$1
