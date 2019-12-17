@@ -2,7 +2,6 @@
 
 set -o pipefail
 
-
 # peco required
 which peco > /dev/null 2>&1
 if [ "$?" -eq "1" ]; then
@@ -17,8 +16,11 @@ if [ "$?" -eq "1" ]; then
   return 1
 fi
 
-# Get context
 KUBECONFIGDIR=${HOME}/.kube/
+KCTXDIR=${KUBECONFIGDIR}/kctx/
+[ ! -d ${KCTXDIR} ] && mkdir ${KCTXDIR}
+
+# Get context
 if [ "$#" -eq 0 ]; then
   CONTEXT=`KUBECONFIG=${KUBECONFIGDIR}/config kubectl config get-contexts -o name | peco`
 else
@@ -26,7 +28,7 @@ else
 fi
 
 # Create each context
-FILENAME=${KUBECONFIGDIR}/config-${CONTEXT}
+FILENAME=${KCTXDIR}/config-${CONTEXT}
 if [ ! -f ${FILENAME} ]; then
   CURRENT_CONTECT=`kubectl config current-context`
   kubectl config use-context ${CONTEXT} && kubectl config view --minify --raw > ${FILENAME}
