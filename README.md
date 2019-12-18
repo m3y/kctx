@@ -35,6 +35,11 @@ $ kubectl get pods
 ```
 ^^ Example of simultaneous connection to two clusters
 
+Return to the original kubeconfig
+```
+$ unset KUBECONFIG
+```
+
 
 ## Install
 ```
