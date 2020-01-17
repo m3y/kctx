@@ -47,6 +47,11 @@ else
 fi
 
 # Create each context
+if [ "${CONTEXT}" = "" ]; then
+    usage
+    return 1
+fi
+
 FILENAME=${KCTXDIR}/config-${CONTEXT}
 if [ ! -f ${FILENAME} ]; then
   CURRENT_CONTEXT=`kubectl config current-context`
