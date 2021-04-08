@@ -54,12 +54,11 @@ fi
 
 FILENAME=${KCTXDIR}/config-${CONTEXT}
 if [ ! -f ${FILENAME} ]; then
-  CURRENT_CONTEXT=`kubectl config current-context`
   kubectl config use-context ${CONTEXT} > /dev/null
   kubectl config view --minify --raw > ${FILENAME}
   chmod 600 ${FILENAME}
   # Restore the original
-  kubectl config use-context ${CURRENT_CONTEXT} > /dev/null 2>&1
+  kubectl config unset current-context > /dev/null 2>&1
 fi
 
 # Switched
